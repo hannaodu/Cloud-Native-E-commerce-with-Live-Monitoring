@@ -1,0 +1,1 @@
+{"statusCode": 400, "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"}, "body": "{\"error\": \"V2 Error: unsupported operand type(s) for *: 'float' and 'decimal.Decimal'\"}"}

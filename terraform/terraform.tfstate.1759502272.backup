@@ -1,7 +1,7 @@
 {
   "version": 4,
   "terraform_version": "1.13.3",
-  "serial": 107,
+  "serial": 96,
   "lineage": "4abbdd52-af0e-51a4-8306-12cafa0157d4",
   "outputs": {
     "add_to_cart_url": {
@@ -10,10 +10,6 @@
     },
     "api_gateway_url": {
       "value": "https://26y8cbhpua.execute-api.eu-west-2.amazonaws.com/prod/",
-      "type": "string"
-    },
-    "create_order_url": {
-      "value": "https://26y8cbhpua.execute-api.eu-west-2.amazonaws.com/prod/orders",
       "type": "string"
     },
     "get_product_url_example": {
@@ -152,7 +148,7 @@
         {
           "schema_version": 0,
           "attributes": {
-            "cache_key_parameters": [],
+            "cache_key_parameters": null,
             "cache_namespace": "uol4q6",
             "connection_id": "",
             "connection_type": "INTERNET",
@@ -162,8 +158,8 @@
             "id": "agi-26y8cbhpua-uol4q6-POST",
             "integration_http_method": "POST",
             "passthrough_behavior": "WHEN_NO_MATCH",
-            "request_parameters": {},
-            "request_templates": {},
+            "request_parameters": null,
+            "request_templates": null,
             "resource_id": "uol4q6",
             "rest_api_id": "26y8cbhpua",
             "timeout_milliseconds": 29000,
@@ -198,7 +194,7 @@
         {
           "schema_version": 0,
           "attributes": {
-            "cache_key_parameters": [],
+            "cache_key_parameters": null,
             "cache_namespace": "x9dl9m",
             "connection_id": "",
             "connection_type": "INTERNET",
@@ -208,8 +204,8 @@
             "id": "agi-26y8cbhpua-x9dl9m-GET",
             "integration_http_method": "POST",
             "passthrough_behavior": "WHEN_NO_MATCH",
-            "request_parameters": {},
-            "request_templates": {},
+            "request_parameters": null,
+            "request_templates": null,
             "resource_id": "x9dl9m",
             "rest_api_id": "26y8cbhpua",
             "timeout_milliseconds": 29000,
@@ -679,9 +675,9 @@
             "invoke_url": "https://26y8cbhpua.execute-api.eu-west-2.amazonaws.com/prod",
             "rest_api_id": "26y8cbhpua",
             "stage_name": "prod",
-            "tags": {},
+            "tags": null,
             "tags_all": {},
-            "variables": {},
+            "variables": null,
             "web_acl_arn": "",
             "xray_tracing_enabled": false
           },
@@ -1209,6 +1205,102 @@
     {
       "mode": "managed",
       "type": "aws_lambda_function",
+      "name": "create_order",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:eu-west-2:396608798123:function:serverless-ecommerce-create-order",
+            "code_sha256": "jw+QQfO/xbWJph037jx1wybIJYeO+GZH/e4DH6ZgZYc=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "",
+            "environment": [
+              {
+                "variables": {
+                  "CARTS_TABLE": "serverless-ecommerce-shopping-carts",
+                  "ORDERS_TABLE": "orders",
+                  "ORDER_ITEMS_TABLE": "order_items",
+                  "PRODUCTS_TABLE": "serverless-ecommerce-products"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "lambdas/orders/create_order_v2.zip",
+            "function_name": "serverless-ecommerce-create-order",
+            "handler": "create_order_v2.lambda_handler",
+            "id": "serverless-ecommerce-create-order",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:396608798123:function:serverless-ecommerce-create-order/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2025-10-03T12:32:47.000+0000",
+            "layers": [],
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/serverless-ecommerce-create-order",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 128,
+            "package_type": "Zip",
+            "publish": false,
+            "qualified_arn": "arn:aws:lambda:eu-west-2:396608798123:function:serverless-ecommerce-create-order:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:396608798123:function:serverless-ecommerce-create-order:$LATEST/invocations",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "role": "arn:aws:iam::396608798123:role/serverless-ecommerce-lambda-role",
+            "runtime": "python3.9",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "jw+QQfO/xbWJph037jx1wybIJYeO+GZH/e4DH6ZgZYc=",
+            "source_code_size": 1004,
+            "tags": {},
+            "tags_all": {},
+            "timeout": 30,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_dynamodb_table.order_items",
+            "aws_dynamodb_table.orders",
+            "aws_dynamodb_table.products",
+            "aws_dynamodb_table.shopping_carts",
+            "aws_iam_role.lambda_role",
+            "aws_iam_role_policy.lambda_dynamodb"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
       "name": "create_order_v2",
       "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
       "instances": [
@@ -1501,13 +1593,13 @@
             "event_source_token": null,
             "function_name": "serverless-ecommerce-add-to-cart",
             "function_url_auth_type": null,
-            "id": "AllowAPIGatewayAddToCart",
+            "id": "AllowExecutionFromAPIGateway",
             "principal": "apigateway.amazonaws.com",
             "principal_org_id": null,
             "qualifier": "",
             "source_account": null,
             "source_arn": "arn:aws:execute-api:eu-west-2:396608798123:26y8cbhpua/*/*",
-            "statement_id": "AllowAPIGatewayAddToCart",
+            "statement_id": "AllowExecutionFromAPIGateway",
             "statement_id_prefix": ""
           },
           "sensitive_attributes": [],
@@ -1529,82 +1621,6 @@
     {
       "mode": "managed",
       "type": "aws_lambda_permission",
-      "name": "api_gateway_create_order",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "action": "lambda:InvokeFunction",
-            "event_source_token": null,
-            "function_name": "serverless-ecommerce-create-order-v2",
-            "function_url_auth_type": null,
-            "id": "AllowAPIGatewayCreateOrder",
-            "principal": "apigateway.amazonaws.com",
-            "principal_org_id": null,
-            "qualifier": "",
-            "source_account": null,
-            "source_arn": "arn:aws:execute-api:eu-west-2:396608798123:26y8cbhpua/*/*",
-            "statement_id": "AllowAPIGatewayCreateOrder",
-            "statement_id_prefix": ""
-          },
-          "sensitive_attributes": [],
-          "identity_schema_version": 0,
-          "private": "bnVsbA==",
-          "dependencies": [
-            "aws_api_gateway_rest_api.orders_api",
-            "aws_dynamodb_table.order_items",
-            "aws_dynamodb_table.orders",
-            "aws_dynamodb_table.products",
-            "aws_dynamodb_table.shopping_carts",
-            "aws_iam_role.lambda_role",
-            "aws_iam_role_policy.lambda_dynamodb",
-            "aws_lambda_function.create_order_v2"
-          ]
-        }
-      ]
-    },
-    {
-      "mode": "managed",
-      "type": "aws_lambda_permission",
-      "name": "api_gateway_get_order",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "action": "lambda:InvokeFunction",
-            "event_source_token": null,
-            "function_name": "serverless-ecommerce-create-order-v2",
-            "function_url_auth_type": null,
-            "id": "AllowAPIGatewayGetOrder",
-            "principal": "apigateway.amazonaws.com",
-            "principal_org_id": null,
-            "qualifier": "",
-            "source_account": null,
-            "source_arn": "arn:aws:execute-api:eu-west-2:396608798123:26y8cbhpua/*/*",
-            "statement_id": "AllowAPIGatewayGetOrder",
-            "statement_id_prefix": ""
-          },
-          "sensitive_attributes": [],
-          "identity_schema_version": 0,
-          "private": "bnVsbA==",
-          "dependencies": [
-            "aws_api_gateway_rest_api.orders_api",
-            "aws_dynamodb_table.order_items",
-            "aws_dynamodb_table.orders",
-            "aws_dynamodb_table.products",
-            "aws_dynamodb_table.shopping_carts",
-            "aws_iam_role.lambda_role",
-            "aws_iam_role_policy.lambda_dynamodb",
-            "aws_lambda_function.create_order_v2"
-          ]
-        }
-      ]
-    },
-    {
-      "mode": "managed",
-      "type": "aws_lambda_permission",
       "name": "api_gateway_get_product",
       "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
       "instances": [
@@ -1615,13 +1631,13 @@
             "event_source_token": null,
             "function_name": "serverless-ecommerce-get-product",
             "function_url_auth_type": null,
-            "id": "AllowAPIGatewayGetProduct",
+            "id": "AllowExecutionFromAPIGateway",
             "principal": "apigateway.amazonaws.com",
             "principal_org_id": null,
             "qualifier": "",
             "source_account": null,
             "source_arn": "arn:aws:execute-api:eu-west-2:396608798123:26y8cbhpua/*/*",
-            "statement_id": "AllowAPIGatewayGetProduct",
+            "statement_id": "AllowExecutionFromAPIGateway",
             "statement_id_prefix": ""
           },
           "sensitive_attributes": [],
@@ -1653,13 +1669,13 @@
             "event_source_token": null,
             "function_name": "serverless-ecommerce-list-products",
             "function_url_auth_type": null,
-            "id": "AllowAPIGatewayListProducts",
+            "id": "AllowExecutionFromAPIGateway",
             "principal": "apigateway.amazonaws.com",
             "principal_org_id": null,
             "qualifier": "",
             "source_account": null,
             "source_arn": "arn:aws:execute-api:eu-west-2:396608798123:26y8cbhpua/*/*",
-            "statement_id": "AllowAPIGatewayListProducts",
+            "statement_id": "AllowExecutionFromAPIGateway",
             "statement_id_prefix": ""
           },
           "sensitive_attributes": [],

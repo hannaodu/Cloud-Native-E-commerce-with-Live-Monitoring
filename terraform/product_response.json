@@ -1,0 +1,1 @@
+{"statusCode": 200, "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"}, "body": "{\"category\": \"Books\", \"description\": \"Complete guide to serverless architecture\", \"price\": 29.99, \"name\": \"Serverless Compute Book\", \"productId\": \"1\", \"stock_quantity\": 100}"}

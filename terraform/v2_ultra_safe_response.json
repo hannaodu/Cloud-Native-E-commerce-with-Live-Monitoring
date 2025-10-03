@@ -1,0 +1,1 @@
+{"statusCode": 201, "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"}, "body": "{\"message\": \"V2 ULTRA SAFE SUCCESS!\", \"order_id\": \"98bc63d8-87da-4598-b9d2-03edfcc8fcc1\", \"total_amount\": 59.98, \"status\": \"pending\", \"items_count\": 1}"}
