@@ -1,0 +1,176 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Serverless Ecommerce Platform - Days 3-4
+
+Globals:
+  Function:
+    Runtime: nodejs18.x
+    Timeout: 10
+    Environment:
+      Variables:
+        PRODUCTS_TABLE:
+          Ref: ProductsTable
+        CARTS_TABLE:
+          Ref: ShoppingCartTable
+  Api:
+    Auth:
+      DefaultAuthorizer: NONE
+
+Resources:
+  ProductsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Products
+      AttributeDefinitions:
+        - AttributeName: productId
+          AttributeType: S
+        - AttributeName: category
+          AttributeType: S
+        - AttributeName: price
+          AttributeType: N
+      KeySchema:
+        - AttributeName: productId
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: category-price-index
+          KeySchema:
+            - AttributeName: category
+              KeyType: HASH
+            - AttributeName: price
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      BillingMode: PAY_PER_REQUEST
+
+  ShoppingCartTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ShoppingCart
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
+  SearchProductsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/products/
+      Handler: search-products.handler
+      Policies: 
+        - DynamoDBReadPolicy:
+            TableName:
+              Ref: ProductsTable
+      Events:
+        SearchApi:
+          Type: Api
+          Properties:
+            Path: /products/search
+            Method: get
+            Auth:
+              Authorizer: NONE
+
+  GetProductFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/products/
+      Handler: get-product.handler
+      Policies: 
+        - DynamoDBReadPolicy:
+            TableName:
+              Ref: ProductsTable
+      Events:
+        GetApi:
+          Type: Api
+          Properties:
+            Path: /products/{productId}
+            Method: get
+            Auth:
+              Authorizer: NONE
+
+  AddToCartFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/cart/
+      Handler: add-to-cart.handler
+      Policies: 
+        - DynamoDBCrudPolicy:
+            TableName:
+              Ref: ShoppingCartTable
+        - DynamoDBReadPolicy:
+            TableName:
+              Ref: ProductsTable
+      Events:
+        AddApi:
+          Type: Api
+          Properties:
+            Path: /cart
+            Method: post
+            Auth:
+              Authorizer: NONE
+
+  GetCartFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/cart/
+      Handler: get-cart.handler
+      Policies: 
+        - DynamoDBReadPolicy:
+            TableName:
+              Ref: ShoppingCartTable
+      Events:
+        GetApi:
+          Type: Api
+          Properties:
+            Path: /cart/{userId}
+            Method: get
+            Auth:
+              Authorizer: NONE
+
+  UpdateCartFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/cart/
+      Handler: update-cart.handler
+      Policies: 
+        - DynamoDBCrudPolicy:
+            TableName:
+              Ref: ShoppingCartTable
+      Events:
+        UpdateApi:
+          Type: Api
+          Properties:
+            Path: /cart
+            Method: put
+            Auth:
+              Authorizer: NONE
+
+Outputs:
+  ApiGatewayUrl:
+    Description: "API Gateway URL"
+    Value:
+      Fn::Sub: "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  
+  ProductsSearchEndpoint:
+    Description: "Products Search Endpoint"
+    Value:
+      Fn::Sub: "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/products/search"
+  
+  AddToCartEndpoint:
+    Description: "Add to Cart Endpoint"
+    Value:
+      Fn::Sub: "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/cart"
+  
+  GetCartEndpoint:
+    Description: "Get Cart Endpoint"
+    Value:
+      Fn::Sub: "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/cart/{userId}"
+
+
+
+
