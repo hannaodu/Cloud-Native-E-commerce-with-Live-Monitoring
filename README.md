@@ -32,4 +32,8 @@ PHASE 4: DEPLOYMENT & LIVE
 ✅ API Endpoints Live
 ✅ Frontend Deployment
 
+![alt text](<Screenshot 2025-10-03 at 5.02.42 PM.png>)
+
+![alt text](<Screenshot 2025-10-03 at 5.03.24 PM.png>)
+
 
